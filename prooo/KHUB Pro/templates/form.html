@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App - Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7; /* Change the background color */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px; /* Add some space below the heading */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff; /* Add a white background to the form */
+            padding: 20px;
+            border-radius: 5px; /* Add rounded corners to the form */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow to the form */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold; /* Make the labels bold */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px; /* Increase the space between form elements */
+            border: 1px solid #ccc; /* Add a border to form elements */
+            border-radius: 4px; /* Add rounded corners to form elements */
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px; /* Add rounded corners to the submit button */
+        }
+
+        .redirect-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px; /* Add some space above the redirect link */
+        }
+
+        .flash-message {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 20px; /* Increase the space between flash messages */
+            cursor: pointer;
+            border: 1px solid #ccc; /* Add a border to flash messages */
+            border-radius: 4px; /* Add rounded corners to flash messages */
+        }
+
+        .flash-error {
+            color: red;
+        }
+
+        .flash-success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flash-message">
+            {% for message in messages %}
+                <div class="flash-{{ message[1] }}">{{ message[0] }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<h1>Flask App - Form</h1>
+<form action="{{ url_for('submit') }}" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select><br>
+
+    <label for="mobile">Have Mobile:</label>
+    <select id="mobile" name="mobile" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select><br>
+
+    <label for="grade">Grade:</label>
+    <select id="grade" name="grade" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<a class="redirect-link" href="{{ url_for('login') }}">Go to Data Page</a>
+    <script>
+        document.querySelector('.flash-message').addEventListener('click', function() {
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

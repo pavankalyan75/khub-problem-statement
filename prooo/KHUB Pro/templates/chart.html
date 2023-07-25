@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App - Chart</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Flask App - Chart</h1>
+    <div class="chart-container">
+        <h2>{{ chart_name }}</h2>
+        <img src="{{ url_for('get_chart', chart_name=chart_name) }}" alt="{{ chart_name }}">
+    </div>
+</body>
+</html>

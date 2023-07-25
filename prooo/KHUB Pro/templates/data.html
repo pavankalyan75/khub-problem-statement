@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask App - Data</title>
+    <style>
+        /* Set default styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Change the background color */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* Add a white background to the container */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+            border-radius: 5px; /* Add rounded corners to the container */
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px; /* Add some space below the heading */
+        }
+
+        p {
+            color: #666;
+            text-align: center; /* Center the paragraph */
+        }
+
+        .chart {
+            margin-bottom: 40px; /* Increase the space between charts */
+        }
+
+        /* Customize specific elements */
+        #age-chart, #gender-chart, #mobile-chart, #grade-chart {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc; /* Add a border around each chart */
+            border-radius: 5px; /* Add rounded corners to the charts */
+            background-color: #fff; /* Add a white background to the charts */
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); /* Add a slight shadow to the charts */
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Flask App - Data</h1>
+        <p>Total Users: {{ total_users }}</p>
+
+        <div id="age-chart" class="chart"></div>
+        <div id="gender-chart" class="chart"></div>
+        <div id="mobile-chart" class="chart"></div>
+        <div id="grade-chart" class="chart"></div>
+
+        <script type="text/javascript">
+            var ageLabels = {{ age_chart_labels | tojson }};
+            var ageValues = {{ age_chart_values | tojson }};
+            var genderLabels = {{ gender_chart_labels | tojson }};
+            var genderValues = {{ gender_chart_values | tojson }};
+            var mobileLabels = {{ mobile_chart_labels | tojson }};
+            var mobileValues = {{ mobile_chart_values | tojson }};
+            var gradeLabels = {{ grade_chart_labels | tojson }};
+            var gradeValues = {{ grade_chart_values | tojson }};
+
+            var ageData = [{
+                values: ageValues,
+                labels: ageLabels,
+                type: 'pie'
+            }];
+            var genderData = [{
+                values: genderValues,
+                labels: genderLabels,
+                type: 'pie'
+            }];
+            var mobileData = [{
+                values: mobileValues,
+                labels: mobileLabels,
+                type: 'pie'
+            }];
+            var gradeData = [{
+                values: gradeValues,
+                labels: gradeLabels,
+                type: 'pie'
+            }];
+
+            var ageLayout = {
+                title: 'Age Distribution'
+            };
+            var genderLayout = {
+                title: 'Gender Distribution'
+            };
+            var mobileLayout = {
+                title: 'Mobile Availability'
+            };
+            var gradeLayout = {
+                title: 'Grade Distribution'
+            };
+
+            Plotly.newPlot('age-chart', ageData, ageLayout);
+            Plotly.newPlot('gender-chart', genderData, genderLayout);
+            Plotly.newPlot('mobile-chart', mobileData, mobileLayout);
+            Plotly.newPlot('grade-chart', gradeData, gradeLayout);
+        </script>
+    </div>
+</body>
+</html>
